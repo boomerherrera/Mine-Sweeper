@@ -43,7 +43,20 @@ public class MineSweeper {
 
 	private static void randomizeMinePlacement() 
 	{
-		
+	int minesPerRow = ((int) (Math.random()*3));
+	// System.out.println(minesPerRow);
+	if(minesPerRow == 2)
+		{
+		// run random 2 times
+		}
+	if(minesPerRow == 1)
+		{
+		// run random once
+		}
+	if(minesPerRow == 0)
+		{
+		// skip row, go to next row
+		}
 		
 	}
 
