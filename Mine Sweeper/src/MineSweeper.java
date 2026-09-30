@@ -38,26 +38,40 @@ public class MineSweeper {
 		System.out.println("  |------------------------------------------------|");
 		System.out.println("8 | " + mineField[7][0] + "   |   " + mineField[7][1] + "  |  "+ mineField[7][2] + "  |  "+ mineField[7][3] + "  |  "+ mineField[7][4] + "  |  "+ mineField[7][5] + "  |  "+ mineField[7][6] + "  |  "+ mineField[7][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		
+		for(int row = 0; row < mineField.length; row++)
+			{
+			for(int col = 0; col < mineField[0].length; col++)
+				{
+				String spot = mineField[row][col];
+				if(spot.equals("X"))
+						{
+						spot = " "; 
+						}
+				}
+			}
+			
 	}
 
 	private static void randomizeMinePlacement() 
 	{
-	int minesPerRow = ((int) (Math.random()*3));
-	// System.out.println(minesPerRow);
-	if(minesPerRow == 2)
+	for(int row = 0; row < mineField.length; row++)
 		{
-		// run random 2 times
-		}
-	if(minesPerRow == 1)
-		{
-		// run random once
-		}
-	if(minesPerRow == 0)
-		{
-		// skip row, go to next row
-		}
+		int minesPerRow = (int)(Math.random()*3);
 		
+		for (int i = 0; i < minesPerRow; i++)
+			{
+			int col = (int)(Math.random()*mineField[0].length);
+			if(mineField[row][col].equals(" "))
+				{
+				mineField[row][col] = "X";
+				}
+			else
+				{
+				col--;
+				}
+			}
+		
+		}
 	}
 
 	private static void generateBoard() 
