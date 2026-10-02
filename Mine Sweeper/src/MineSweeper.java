@@ -38,18 +38,6 @@ public class MineSweeper {
 		System.out.println("  |------------------------------------------------|");
 		System.out.println("8 | " + mineField[7][0] + "   |   " + mineField[7][1] + "  |  "+ mineField[7][2] + "  |  "+ mineField[7][3] + "  |  "+ mineField[7][4] + "  |  "+ mineField[7][5] + "  |  "+ mineField[7][6] + "  |  "+ mineField[7][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		for(int row = 0; row < mineField.length; row++)
-			{
-			for(int col = 0; col < mineField[0].length; col++)
-				{
-				String spot = mineField[row][col];
-				if(spot.equals("X"))
-						{
-						spot = " "; 
-						}
-				}
-			}
-			
 	}
 
 	private static void randomizeMinePlacement() 
@@ -67,10 +55,24 @@ public class MineSweeper {
 				}
 			else
 				{
-				col--;
+				i--;
 				}
+			
 			}
 		
+		
+		}
+	for(int row = 0; row < mineField.length; row++)
+	{
+	
+	for(int col = 0; col < mineField[0].length; col++)
+		{
+		String spot = mineField[row][col];
+		if(spot.equals("X"))
+				{
+				spot = " "; 
+				}
+			}
 		}
 	}
 
@@ -86,6 +88,7 @@ public class MineSweeper {
 		
 		
 		
-	}
+	
 
+	}
 }
