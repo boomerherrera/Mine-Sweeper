@@ -1,6 +1,8 @@
-
+import java.util.Scanner;
 public class MineSweeper {
-	static String[][] mineField = new String[8][8];
+	private static final int SIZE = 8; // final means its constant
+    private static String[][] mineField = new String[SIZE][SIZE]; // this is hidden 
+    private static String[][] playerBoard = new String[SIZE][SIZE]; // what the player sees (These were helped with AI)
 	public static void main(String[] args) 
 	{
 	
@@ -14,42 +16,72 @@ public class MineSweeper {
 
 	private static void playGame() 
 	{
-		//working
-		//working
-		
+		Scanner scanner = new Scanner(System.in);
+        boolean playing = true;
+
+        while (playing) 
+        		{
+            	System.out.print("Enter your move (like A3 or E6)");
+            	char colPick = scanner.next().toUpperCase().charAt(0);
+            	int rowPick = scanner.nextInt() - 1;
+            	int colTranslate = colPick - 'A'; // this converts the Letters to numbers (AI help)
+            	if(mineField[rowPick][colTranslate].equals("X"))
+            		{
+            		System.out.println("BOOM!! You hit a mine, Game over!");
+            		revealAllMines();
+            		displayBoard();
+            		playing = false;
+            		}
+            	else
+            		{
+            		playerBoard[rowPick][colTranslate] = "O";
+            		displayBoard();
+            		}
+                }
+	}
+
+	private static void revealAllMines() 
+		{
+		for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (mineField[row][col].equals("X")) {
+                    playerBoard[row][col] = "X";
+                }
+            }
+		}
 	}
 
 	private static void displayBoard() 
 	{
-		System.out.println("  |  A  |  B   |  C  |  D  |  E  |  F  |  H  |  I  | ");
+		System.out.println("  |  A  |  B   |  C  |  D  |  E  |  F  |  G  |  H  | ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("1 | " + mineField[0][0] + "   |   " + mineField[0][1] + "  |  "+ mineField[0][2] + "  |  "+ mineField[0][3] + "  |  "+ mineField[0][4] + "  |  "+ mineField[0][5] + "  |  "+ mineField[0][6] + "  |  "+ mineField[0][7] + "  |  ");
+		System.out.println("1 | " + playerBoard[0][0] + "   |   " + playerBoard[0][1] + "  |  "+ playerBoard[0][2] + "  |  "+ playerBoard[0][3] + "  |  "+ playerBoard[0][4] + "  |  "+ playerBoard[0][5] + "  |  "+ playerBoard[0][6] + "  |  "+ playerBoard[0][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("2 | " + mineField[1][0] + "   |   " + mineField[1][1] + "  |  "+ mineField[1][2] + "  |  "+ mineField[1][3] + "  |  "+ mineField[1][4] + "  |  "+ mineField[1][5] + "  |  "+ mineField[1][6] + "  |  "+ mineField[1][7] + "  |  ");
+		System.out.println("2 | " + playerBoard[1][0] + "   |   " + playerBoard[1][1] + "  |  "+ playerBoard[1][2] + "  |  "+ playerBoard[1][3] + "  |  "+ playerBoard[1][4] + "  |  "+ playerBoard[1][5] + "  |  "+ playerBoard[1][6] + "  |  "+ playerBoard[1][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("3 | " + mineField[2][0] + "   |   " + mineField[2][1] + "  |  "+ mineField[2][2] + "  |  "+ mineField[2][3] + "  |  "+ mineField[2][4] + "  |  "+ mineField[2][5] + "  |  "+ mineField[2][6] + "  |  "+ mineField[2][7] + "  |  ");
+		System.out.println("3 | " + playerBoard[2][0] + "   |   " + playerBoard[2][1] + "  |  "+ playerBoard[2][2] + "  |  "+ playerBoard[2][3] + "  |  "+ playerBoard[2][4] + "  |  "+ playerBoard[2][5] + "  |  "+ playerBoard[2][6] + "  |  "+ playerBoard[2][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("4 | " + mineField[3][0] + "   |   " + mineField[3][1] + "  |  "+ mineField[3][2] + "  |  "+ mineField[3][3] + "  |  "+ mineField[3][4] + "  |  "+ mineField[3][5] + "  |  "+ mineField[3][6] + "  |  "+ mineField[3][7] + "  |  ");
+		System.out.println("4 | " + playerBoard[3][0] + "   |   " + playerBoard[3][1] + "  |  "+ playerBoard[3][2] + "  |  "+ playerBoard[3][3] + "  |  "+ playerBoard[3][4] + "  |  "+ playerBoard[3][5] + "  |  "+ playerBoard[3][6] + "  |  "+ playerBoard[3][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("5 | " + mineField[4][0] + "   |   " + mineField[4][1] + "  |  "+ mineField[4][2] + "  |  "+ mineField[4][3] + "  |  "+ mineField[4][4] + "  |  "+ mineField[4][5] + "  |  "+ mineField[4][6] + "  |  "+ mineField[4][7] + "  |  ");
+		System.out.println("5 | " + playerBoard[4][0] + "   |   " + playerBoard[4][1] + "  |  "+ playerBoard[4][2] + "  |  "+ playerBoard[4][3] + "  |  "+ playerBoard[4][4] + "  |  "+ playerBoard[4][5] + "  |  "+ playerBoard[4][6] + "  |  "+ playerBoard[4][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("6 | " + mineField[5][0] + "   |   " + mineField[5][1] + "  |  "+ mineField[5][2] + "  |  "+ mineField[5][3] + "  |  "+ mineField[5][4] + "  |  "+ mineField[5][5] + "  |  "+ mineField[5][6] + "  |  "+ mineField[5][7] + "  |  ");
+		System.out.println("6 | " + playerBoard[5][0] + "   |   " + playerBoard[5][1] + "  |  "+ playerBoard[5][2] + "  |  "+ playerBoard[5][3] + "  |  "+ playerBoard[5][4] + "  |  "+ playerBoard[5][5] + "  |  "+ playerBoard[5][6] + "  |  "+ playerBoard[5][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("7 | " + mineField[6][0] + "   |   " + mineField[6][1] + "  |  "+ mineField[6][2] + "  |  "+ mineField[6][3] + "  |  "+ mineField[6][4] + "  |  "+ mineField[6][5] + "  |  "+ mineField[6][6] + "  |  "+ mineField[6][7] + "  |  ");
+		System.out.println("7 | " + playerBoard[6][0] + "   |   " + playerBoard[6][1] + "  |  "+ playerBoard[6][2] + "  |  "+ playerBoard[6][3] + "  |  "+ playerBoard[6][4] + "  |  "+ playerBoard[6][5] + "  |  "+ playerBoard[6][6] + "  |  "+ playerBoard[6][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
-		System.out.println("8 | " + mineField[7][0] + "   |   " + mineField[7][1] + "  |  "+ mineField[7][2] + "  |  "+ mineField[7][3] + "  |  "+ mineField[7][4] + "  |  "+ mineField[7][5] + "  |  "+ mineField[7][6] + "  |  "+ mineField[7][7] + "  |  ");
+		System.out.println("8 | " + playerBoard[7][0] + "   |   " + playerBoard[7][1] + "  |  "+ playerBoard[7][2] + "  |  "+ playerBoard[7][3] + "  |  "+ playerBoard[7][4] + "  |  "+ playerBoard[7][5] + "  |  "+ playerBoard[7][6] + "  |  "+ playerBoard[7][7] + "  |  ");
 		System.out.println("  |------------------------------------------------|");
 	}
 
 	private static void randomizeMinePlacement() 
 	{
-	for(int row = 0; row < mineField.length; row++)
+	for(int row = 0; row < SIZE; row++)
 		{
 		int minesPerRow = (int)(Math.random()*3);
 		
 		for (int i = 0; i < minesPerRow; i++)
 			{
-			int col = (int)(Math.random()*mineField[0].length);
+			int col = (int)(Math.random()*SIZE);
 			if(mineField[row][col].equals(" "))
 				{
 				mineField[row][col] = "X";
@@ -79,14 +111,15 @@ public class MineSweeper {
 
 	private static void generateBoard() 
 	{
-		for(int row = 0; row < mineField.length; row++)
+		for(int row = 0; row < SIZE; row++) 
 			{
-			for(int col = 0; col < mineField[0].length; col++)
+			for(int col = 0; col < SIZE; col++)
 				{
 				mineField[row][col] = " ";
+				playerBoard[row][col] = " ";
 				}
-			}
-		
+			} 
+	
 		
 		
 	
