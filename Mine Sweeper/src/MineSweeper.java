@@ -8,7 +8,7 @@ public class MineSweeper {
 	
 	generateBoard();
 	randomizeMinePlacement();
-	displayBoard();
+//	displayBoard();
 	playGame();
 	
 
@@ -20,25 +20,45 @@ public class MineSweeper {
         boolean playing = true;
 
         while (playing) 
-        		{
-            	System.out.print("Enter your move (like A3 or E6)");
-            	char colPick = scanner.next().toUpperCase().charAt(0);
-            	int rowPick = scanner.nextInt() - 1;
-            	int colTranslate = colPick - 'A'; // this converts the Letters to numbers (AI help)
-            	if(mineField[rowPick][colTranslate].equals("X"))
-            		{
-            		System.out.println("BOOM!! You hit a mine, Game over!");
-            		revealAllMines();
-            		displayBoard();
-            		playing = false;
-            		}
-            	else
-            		{
-            		playerBoard[rowPick][colTranslate] = "O";
-            		displayBoard();
-            		}
-                }
+        {
+           
+            displayBoard();
+
+            System.out.print("Enter your move (like A3 or E6): ");
+            String input = scanner.next().toUpperCase();
+            
+            
+            if (input.length() < 2) {
+                System.out.println("Invalid input! Try something like A3.");
+
+            }
+
+            char colPick = input.charAt(0);
+            int rowPick = Integer.parseInt(input.substring(1)) - 1;
+            int colTranslate = colPick - 'A'; // converts letter to number (AI HELP)
+
+            // Check if they picked a valid spot on the board
+            if (rowPick < 0 || rowPick >= SIZE || colTranslate < 0 || colTranslate >= SIZE) {
+                System.out.println("Out of bounds! Choose columns A-H and rows 1-8.");
+                
+            }
+
+            if(mineField[rowPick][colTranslate].equals("X"))
+            {
+                System.out.println("\nBOOM!! You hit a mine, Game over!");
+                revealAllMines();
+                displayBoard(); // Show final board with all mines revealed
+                playing = false;
+            }
+            else
+            {
+                playerBoard[rowPick][colTranslate] = "O";
+                
+            }
+        }
+        scanner.close();
 	}
+	
 
 	private static void revealAllMines() 
 		{
